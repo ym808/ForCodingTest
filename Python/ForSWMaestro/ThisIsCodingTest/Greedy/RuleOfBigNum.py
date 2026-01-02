@@ -1,12 +1,5 @@
-constraints = input()
-nums = input()
-
-constraints = [int(x) for x in constraints.split()]
-N = constraints[0]
-M = constraints[1]
-K = constraints[2]
-
-nums = [int(x) for x in nums.split()]
+N, M, K = map(int, input().split())
+nums = list(map(int, input().split()))
 
 max = 0
 sec_max = 0
