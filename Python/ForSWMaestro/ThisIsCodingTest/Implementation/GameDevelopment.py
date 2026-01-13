@@ -11,22 +11,18 @@ for _ in range(row_size):
     cols = list(map(int, input().split()))
     matrix.append(cols)
 
+dx = [0, 1, 0, -1]
+dy = [-1, 0, 1, 0]
+
 while True:
     for _ in range(4):
         direction -= 1
+        if direction == -1 : direction = 3
         impossible = 0
         moved = 0        
 
-        match direction:
-            case 0:
-                next_row = row - 1
-            case 1:
-                next_col = col + 1
-            case 2:
-                next_row = row + 1
-            case -1:
-                next_col = col - 1
-                direction = 3
+        next_row = row + dx[direction]
+        next_col = col + dy[direction]
 
         if matrix[next_row][next_col] == 1: 
             impossible = 1
@@ -45,15 +41,8 @@ while True:
     if moved == 1:
         visited_places.append((next_row, next_col))
     else:
-        match direction:
-            case 0:
-                next_row = row + 1
-            case 1:
-                next_col = col - 1
-            case 2:
-                next_row = row - 1
-            case 3:
-                next_col = col + 1
+        next_row = row - dx[direction]
+        next_col = col - dy[direction]
         if matrix[next_row][next_col] == 1: break
     row = next_row
     col = next_col
