@@ -2,11 +2,8 @@ N = int(input())
 
 students = []
 for _ in range(N):
-    information = input().split()
-    information[1] = int(information[1])
-    students.append(information)
+    name, score = input().split()
+    students.append((name, int(score)))
 
 students.sort(key=lambda x: x[1])
-for information in students:
-    print(information[0], end=" ")
-    
+print(' '.join(name for name, _ in students))
