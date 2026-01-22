@@ -1,3 +1,5 @@
+# My code
+
 import sys
 
 n, x = map(int, input().split())
@@ -47,5 +49,46 @@ else:
 
 print(x_num)
     
+# Optimization Code
 
-    
+def find_first_x(array, x):
+    start = 0
+    end = len(array) - 1
+    result = -1
+
+    while start <= end:
+        mid = (start + end) // 2
+
+        if array[mid] == x:
+            result = mid
+            end = mid - 1
+        elif array[mid] > x:
+            end = mid - 1
+        else:
+            start = mid + 1
+    return result
+
+def find_last_x(array, x):
+    start = 0
+    end = len(array) - 1
+    result = -1
+
+    while start <= end:
+        mid = (start + end) // 2
+
+        if array[mid] == x:
+            result = mid
+            start = mid + 1
+        elif array[mid] < x:
+            start = mid + 1
+        else:
+            end = mid - 1
+    return result
+
+first_x = find_first_x(nums, x)
+last_x = find_last_x(nums, x)
+
+if first_x == -1:
+    print(-1)
+else:
+    print(last_x - first_x + 1)
