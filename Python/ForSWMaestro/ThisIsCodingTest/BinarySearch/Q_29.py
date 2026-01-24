@@ -1,23 +1,17 @@
 def is_install_possible(dist, count):
     last_router_loc = house_locs[0]
-    count -= 1
-    for house_loc in house_locs:
-        if last_router_loc + dist <= house_loc:
-            last_router_loc = house_loc
-            count -= 1
-    if count <= 0:
-        return True
-    else: return False
+    installed = 1
+    for i in range(1, n):
+        if last_router_loc + dist <= house_locs[i]:
+            last_router_loc = house_locs[i]
+            installed += 1
+            if installed >= count:
+                return True
+    return False
         
-
-
 n, c = map(int, input().split())
 
-house_locs = []
-
-for _ in range(n):
-    house_loc = int(input())
-    house_locs.append(house_loc)
+house_locs = [int(input()) for _ in range(n)]
 house_locs.sort()
 
 start = 1
