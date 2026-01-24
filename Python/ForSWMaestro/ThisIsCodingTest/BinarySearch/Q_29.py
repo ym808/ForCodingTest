@@ -1,9 +1,9 @@
 def is_install_possible(dist, count):
     last_router_loc = house_locs[0]
+    start = 1
 
     for _ in range(count - 1):
         next_router_loc = -1
-        start = house_locs.index(last_router_loc) + 1
         end = len(house_locs) - 1
 
         while start <= end:
@@ -11,15 +11,18 @@ def is_install_possible(dist, count):
 
             if house_locs[mid] == last_router_loc + dist:
                 next_router_loc = house_locs[mid]
+                temp = mid + 1
                 break
             elif house_locs[mid] > last_router_loc + dist:
                 next_router_loc = house_locs[mid]
                 end = mid - 1
+                temp = mid + 1
             else:
                 start = mid + 1
         if next_router_loc == -1:
             return False
         last_router_loc = next_router_loc
+        start = temp
     return True
         
 
