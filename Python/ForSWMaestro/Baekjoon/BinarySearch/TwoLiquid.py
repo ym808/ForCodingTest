@@ -1,14 +1,26 @@
 n = int(input())
 nums = list(map(int, input().split()))
+nums.sort()
+min_sum = 10 ** 9 * 2
 
-min_sum = 10 ** 9 + 1
+for i in range(n):
+    start = i + 1
+    end = n - 1
+    while start <= end:
+        mid = (start + end) // 2
+        cur_sum = nums[i] + nums[mid]
 
-for i in range(len(nums) - 1):
-    for j in range(i + 1, len(nums)):
-        cur_sum = abs(nums[i] + nums[j])
-        if cur_sum <= min_sum:
-            min_sum = cur_sum
-            min_pair = (nums[i], nums[j])
+        if cur_sum == 0:
+            min_pair = (i, mid)
+            break
+        elif cur_sum > 0:
+            end = mid - 1
+        else:
+            start = mid + 1
 
-for num in min_pair:
-    print(num, end=" ")
+        if abs(cur_sum) < min_sum:
+            min_sum = abs(cur_sum)
+            min_pair = (i, mid)
+
+for idx in min_pair:
+    print(nums[idx], end=" ")
