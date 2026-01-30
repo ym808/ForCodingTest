@@ -1,9 +1,9 @@
 import time
 
-d = [0] * 200
+d = [0] * 100
 
 def memoization_fibonacci(i):
-    if i == 0 or i == 1:
+    if i == 1 or i == 2:
         return 1
     
     if d[i] != 0:
