@@ -1,21 +1,14 @@
 n, m = map(int, input().split())
 
-graph = [[] for _ in range(n+1)]
-
-for _ in range(m):
-    a,b = map(int, input().split())
-    graph[a].append(b)
-
-z, y = map(int, input().split())
-
 INF = int(1e9)
 matrix = [[INF] * (n+1) for _ in range(n+1)]
 
-# graph에 따라 matrix 초기화
-for a in range(1, n+1):
-    for b in graph[a]:
-        matrix[a][b] = 1
-        matrix[b][a] = 1
+for _ in range(m):
+    a,b = map(int, input().split())
+    matrix[a][b] = 1
+    matrix[b][a] = 1
+
+z, y = map(int, input().split())
 
 # 자기자신 거리는 0으로 초기화
 for i in range(1, n+1):
