@@ -18,25 +18,22 @@ parent = [0] * (n+1)
 for i in range(1,n+1):
     parent[i] = i
 
-graph = [[] for _ in range(n+1)]
 edges = []
 
 for _ in range(m):
     a,b,c = map(int, input().split())
-    graph[a].append((b,c))
     edges.append((c,a,b))
 
 edges.sort()
 cost_sum = 0
-max_cost = 0
+last = 0
 
 for cost, a, b in edges:
     if find_parent(parent, a) != find_parent(parent, b):
         union_parent(parent, a, b)
         cost_sum += cost
-        if cost > max_cost:
-            max_cost = cost
+        last = cost
 
-cost_sum -= max_cost
+cost_sum -= last
 
 print(cost_sum)
