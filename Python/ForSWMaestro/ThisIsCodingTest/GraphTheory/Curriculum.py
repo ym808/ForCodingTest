@@ -1,33 +1,42 @@
 from collections import deque
+import sys
 
-v, e = map(int, input().split())
+input = sys.stdin.readline
+n = int(input())
 
-indegree = [0] * (v+1)
-graph = [[] for _ in range(v+1)]
+graph = [[] for _ in range(n+1)]
+time = [0] * (n+1)
+req_time = [[0] for _ in range(n+1)]
+indegree = [0] * (n+1)
 
-for _ in range(e):
-    a,b = map(int, input().split())
-    graph[a].append(b)
-    indegree[b] += 1
+for i in range(1, n+1):
+    query = list(map(int, input().split()))
+    time[i] = query[0]
+    indegree[i] = len(query) - 2
+    
+    for j in range(1, len(query)-1):
+        graph[query[j]].append(i)
 
-def topologySort():
+
+def topology_sort():
     q = deque()
-    result = []
 
-    for i in range(1, v+1):
+    for i in range(1, n+1):
         if indegree[i] == 0:
             q.append(i)
 
     while q:
         now = q.popleft()
-        result.append(now)
+        time[now] += max(req_time[now])
 
-        for i in graph[now]:
-            indegree[i] -= 1
-            if indegree[i] == 0:
-                q.append(i)
-        
-    for i in result:
-        print(i, end=" ")
+        for neighbor in graph[now]:
+            indegree[neighbor] -= 1
+            req_time[neighbor].append(time[now])
 
-topologySort()
+            if indegree[neighbor] == 0:
+                q.append(neighbor)
+
+topology_sort()
+for t in time:
+    if t == 0: continue
+    print(t)
