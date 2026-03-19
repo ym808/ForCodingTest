@@ -1,23 +1,24 @@
-import sys 
+import sys
 input = sys.stdin.readline
 
 s = input().rstrip()
 
-nums = list("1234567890")
-
-sum = 0
+total = 0
+has_num = False
 chars = []
-c_count = 0
 
 for c in s:
-    if c in nums:
-        sum += int(c)
-        c_count += 1
+    if c.isdigit():
+        total += int(c)
+        has_num = True
     else:
         chars.append(c)
 
 chars.sort()
-for c in chars:
-    print(c, end="")
-if c_count != 0:
-    print(sum)
+
+result = "".join(chars)
+
+if has_num:
+    result += str(total)
+
+print(result)
