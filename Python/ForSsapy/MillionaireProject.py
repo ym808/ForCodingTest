@@ -12,16 +12,15 @@ for test_case in range(1, T + 1):
     rep = len(prices)
     profit_sum = 0
 
+    max_price = max(prices)
     for i in range(rep):
-        max_price = prices[i]
+        if prices[i] == max_price:
+            max_price = 0
+            for j in range(i + 1, rep):
+                if max_price < prices[j]:
+                    max_price = prices[j]
+            continue
 
-        for j in range(i + 1, rep):
-            if max_price < prices[j]:
-                max_price = prices[j]
-
-        if max_price == prices[i]: continue
         profit_sum += max_price - prices[i]
 
-    print(f"#{test_case} {profit_sum}")
-
-                
+    print(f"#{test_case} {profit_sum}")   
