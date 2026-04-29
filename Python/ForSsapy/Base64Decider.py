@@ -1,35 +1,23 @@
-import string
+base_table ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+chr_dict = {c:idx for idx, c in enumerate(base_table)}
 
 T = int(input())
-# 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
-for test_case in range(1, T + 1):
-    data = input()
+for t in range(T):
+    encoded_str = input()
     
-    comp = string.ascii_uppercase + string.ascii_lowercase + string.digits + "+/"
-    decoded = []
+    decoded_str = []
+    for c in encoded_str:
+        decoded_str.append(chr_dict[c])
+    
+    raw_data = ""
+    for i in range(0, len(decoded_str), 4):
+        data = 0xFF & decoded_str[i]
+        data = (data << 6) | decoded_str[i+1]
+        data = (data << 6) | decoded_str[i+2]
+        data = (data << 6) | decoded_str[i+3]
 
-    for d in data:
-        i=0
-        for c in comp:
-            if d == c:
-                decoded.append(i)
-            i += 1
-        
-    i=0
-    b = ""
-    b_to_int = []
+        raw_data += chr(0xFF & (data >> 16))
+        raw_data += chr(0xFF & (data >> 8))
+        raw_data += chr(0xFF & data)
 
-    for d in decoded:
-        b += f"{d:06b}"
-        i += 1
-        if i >= 4: 
-            for _ in range(3):
-                b_to_int.append(int(b[:8], 2))
-                b = b[8:]
-            i=0
-            b=""
-            
-    print(f"#{test_case}", end=" ")
-    for i in b_to_int:
-        print(chr(i), end="")
-    print()
+    print(f"#{t} {raw_data}")
