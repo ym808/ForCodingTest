@@ -9,19 +9,15 @@ for ts in range(1, T+1):
         row = input().split()
         grid.append(row)
     
-    for _ in range(3):
-        rotated_grid = [[] for _ in range(N)]
-        for r in range(N-1, -1, -1):
-            for i in range(N):
-                rotated_grid[i].append(grid[r][i])
-
-        rotated_grids.append(rotated_grid)
-        grid = copy.deepcopy(rotated_grid)
-
-    print(f"#{ts}")
-    for r in range(N):
-        for i in range(3):
-            for c in range(N):
-                print(rotated_grids[i][r][c], end="")
-            print(end=" ")
-        print()
+    def turn(arr, N):
+        result1 = ""
+        result2 = ""
+        result3 = ""
+        for i in range(N):
+            for j in range(N):
+            # print(i, j)
+                result1 += arr[N-j-1][i] # 90도
+                result2 += arr[N-i-1][N-j-1] # 180도
+                result3 += arr[j][N-i-1] # 180도
+                print(result1, result2, result3)
+                result1, result2, result3 = "", "", ""
